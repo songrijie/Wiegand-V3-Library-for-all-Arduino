@@ -451,8 +451,34 @@ bool WIEGAND::DoWiegandConversion ()
 	
 		return false;
 		}
-		else
-		    return false;
+		else {
+
+			// for reasons, noisy bits could be introduced externally. 
+			// if bitCount !=8 , !=26, !=34, we shall clear all counters to avoid 
+			// existing offset made.
+
+			if (_bitCountA) {
+          		_bitCountA=0;     
+          		_cardTempA=0;
+          		_cardTempHighA=0;
+          	}
+
+          	if (_bitCountB) {
+          		_bitCountB=0;     
+          		_cardTempB=0;
+          		_cardTempHighB=0;
+       		}
+
+        	if (_bitCountC) {
+          		_bitCountC=0;     
+          		_cardTempC=0;
+          		_cardTempHighC=0;
+       		}
+        
+        	_GateActive=0;
+
+			return false;
+		}
 	}
 	else
 		return false;
